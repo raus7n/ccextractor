@@ -642,7 +642,10 @@ int EPG_add_event(struct lib_ccx_ctx *ctx, int32_t pmt_map, struct EPG_event *ev
 		if (ctx->eit_programs[pmt_map].epg_events[j].id == event->id)
 		{
 			if (EPG_event_cmp(event, &ctx->eit_programs[pmt_map].epg_events[j]))
+			{
+				EPG_free_event(event);
 				return false; // event already in array, nothing to do
+			}
 			else
 			{ // event with this id is already in the array but something has changed. Update it.
 				event->count = ctx->eit_programs[pmt_map].epg_events[j].count;
